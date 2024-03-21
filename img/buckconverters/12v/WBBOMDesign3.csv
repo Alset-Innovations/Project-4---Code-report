@@ -1,0 +1,11 @@
+﻿Part,Manufacturer,Part Number,Quantity,Price ($),Footprint (mm²),Description
+Cout,MuRata,GRM32ER61C476KE15L,1,0.17,14.7,Cap: 47 µF  Total Derated Cap: 14 µF  VDC: 16 V  ESR: 3.04 mΩ  Package: 1210  
+Css,MuRata,GRM155R71A333KA01D,1,0.01,3,Cap: 33 nF  Total Derated Cap: 33 nF  VDC: 10 V  ESR: 1 mΩ  Package: 0402  
+L1,Coilcraft,MSS1210-153MEB,1,0.81,204.49,L: 15 µH  DCR: 19 mΩ  IDC: 8.7 A  
+Cin,TDK,C3216X5R1H106K160AB,1,0.24,10.92,Cap: 10 µF  Total Derated Cap: 2.8 µF  VDC: 50 V  ESR: 1 mΩ  Package: 1206_180  
+Cboot,MuRata,GRM155R71A104KA01D,1,0.01,3,Cap: 100 nF  Total Derated Cap: 100 nF  VDC: 10 V  ESR: 1 mΩ  Package: 0402  
+U1,Texas Instruments,TPS62932DRLR,1,0.19,8.64,
+Cinx,TDK,CGA3E2X7R1H104K080AA,1,0.01,4.68,Cap: 100 nF  Total Derated Cap: 100 nF  VDC: 50 V  ESR: 29.6 mΩ  Package: 0603  
+Cff,MuRata,GRM0335C1E470JA01D,1,0.01,2.08,Cap: 47 pF  Total Derated Cap: 47 pF  VDC: 25 V  ESR: 0 Ω  Package: 0201  
+Rfbb,Vishay-Dale,CRCW040210K0FKED,1,0.01,3,Resistance: 10 kΩ  Tolerance: 1.0%  Power: 63 mW  
+Rfbt,Vishay-Dale,CRCW0603140KFKEA,1,0.01,4.68,Resistance: 140 kΩ  Tolerance: 1.0%  Power: 100 mW  

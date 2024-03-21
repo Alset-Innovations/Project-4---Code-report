@@ -1,0 +1,70 @@
+\subsection{Specifications} \label{subsection:Specifications}
+    \subsubsection{Microcontroller:}
+    \begin{itemize}
+        \item Part: STM32F411CEU6
+        \item Manufacturer: ST-Microelectronics
+        \item Core: Arm Cortex-M4
+        \item Max. Clock Speed: 100MHz
+        \item Package: UFQFPN 48 pins
+    \end{itemize}
+
+    \subsubsection{Internal Memories:}
+    \begin{itemize}
+        \item FLASH: 512KiB
+        \item SRAM: 128KiB
+    \end{itemize}
+
+    \subsubsection{Oscillators:}
+    \begin{itemize}
+        \item HSI: 16MHz
+        \item HSE: 25MHz (Critical for precise motor control)
+        \item LSI: 32kHz
+        \item LSE: 32.768kHz
+    \end{itemize}
+
+    \subsubsection{Power:}
+    \begin{itemize}
+        \item Voltage Input: +3.52V to +5.25V
+        \item Power Sources: Any +3.3V pin, Any +5V pin, USB connector
+        \item Backup battery: Supported
+    \end{itemize}
+
+    \subsubsection{Regulator:}
+    \begin{itemize}
+        \item Manufacturer: Diodes Incorporated
+        \item Part: AP7343 (6T)
+        \item Input: +3.52V to +5.25V
+        \item Output: +3.3V @ 300mA
+    \end{itemize}
+
+    \subsubsection{PCB:}
+    \begin{itemize}
+        \item Color: Black
+        \item Size (w x l): 20.78mm x 52.81mm
+        \item Mounting: Breadboard
+    \end{itemize}
+
+    \subsubsection{Inputs \& Outputs:}
+    \begin{itemize}
+        \item Reset button (Active low)
+        \item BOOT0 button (Active high)
+        \item User button (Active low)
+        \item Power LED (Connected to +3.3V rail)
+        \item User LED (Connected to PC13)
+    \end{itemize}
+
+    \subsubsection{Connectors \& Headers:}
+    \begin{itemize}
+        \item Header 1 (20x1, male): 5V, GND, 3.3V, Motor Control Pins (PB0-PB10, PA0-PA7, PC13, NRST, PC15, PC14, VBAT)
+        \item Header 2 (20x1, male): Motor Control Pins (PB12-PB15, PA8-PA15, PB3-PB9, 5V, GND, 3.3V)
+        \item USB Connector (USB C): VBUS, D-, D+, GND (For potential external communication)
+        \item SWD Header (4x1, male): 3.3V, SWDIO (PA13), SWCLK (PA14), GND (For debugging and programming)
+    \end{itemize}
+
+    \subsubsection{Devices:}
+    \begin{itemize}
+        \item Generic EEPROM (I2C): SOP 8 pins, Generic I2C EEPROM
+        \item Connected to PA4 (CS), PB4 (DO), +3.3V rail (WP, HOLD), Ground plane (GND), PA7 (DI), PA5 (CLK), +3.3V rail (VCC)
+    \end{itemize}
+
+All data has been obtained from the listed sources.\cite{stm32datasheet,stm32base,stmicro}.

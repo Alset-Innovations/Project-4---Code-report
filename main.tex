@@ -1,0 +1,163 @@
+\documentclass[a4paper,12pt,english]{article}
+\usepackage{glossaries}
+\usepackage[T1]{fontenc}
+\usepackage{babel}
+\usepackage{graphicx}
+\usepackage[table,xcdraw]{xcolor}
+\usepackage{hyperref}
+\usepackage{blindtext}
+\usepackage{geometry}
+\usepackage{parskip}
+\usepackage{mathtools}
+\usepackage{siunitx}
+\usepackage{listings}
+\usepackage{csquotes}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{comment}
+\usepackage{pdfpages}
+\usepackage[useregional]{datetime2}
+\usepackage{amsmath} % for the equation* environment
+\usepackage{float}
+\usepackage{pict2e}
+\usepackage{fixltx2e}
+\usepackage{tocloft}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{float}
+\usepackage{textgreek}
+\usepackage{colortbl}
+\usepackage{multirow}
+
+
+%%gmedina solution
+\newcommand{\listequationsname}{List of equations}
+\newlistof{myequations}{equ}{\listequationsname}
+\newcommand{\myequations}[1]{%
+\addcontentsline{equ}{myequations}{\protect\numberline{\theequation}#1}\par}
+\setlength{\cftmyequationsnumwidth}{2.5em}% Width of equation number in List of Equations
+
+\DeclareRobustCommand{\slashcirc}{{\mathpalette\doslashcirc\relax}}
+
+\makeatletter
+\newcommand\doslashcirc[2]{%
+  \sbox\z@{$#1\m@th\circ$}%
+  \setlength\unitlength{\wd\z@}
+  \begin{picture}(1,1)
+  \roundcap
+  \put(0,0){\box\z@}
+  \put(0,0){\line(1,1){1}}
+  \end{picture}%
+}
+\makeatother
+
+
+\definecolor{stmblue}{RGB}{0,114,198}    % Adjusted STM32 blue color
+\definecolor{stmgray}{RGB}{128,128,128}
+\definecolor{stmgreen}{RGB}{34,177,76}    % Adjusted STM32 green color
+\definecolor{stmorange}{RGB}{255,140,0}
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+
+\lstset{
+  language=C,
+  basicstyle=\ttfamily\footnotesize,
+  keywordstyle=\color{stmblue},
+  stringstyle=\color{stmgreen},
+  commentstyle=\color{stmgray},
+  moredelim=[s][\color{stmorange}]{\#}{\ },
+  frame=tb,
+  tabsize=4,
+  showstringspaces=false,
+  breaklines=true,
+  numbers=left,
+  numberstyle=\tiny\color{stmgray},
+  numbersep=5pt,
+  extendedchars=true,
+}
+
+\lstdefinestyle{STM32}
+{
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{blue},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\small,
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=5pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=2,
+}
+
+
+
+\usepackage[
+    backend=biber,
+    backref=true,
+    backrefstyle=none,
+    sortcites=true,
+    sorting=none,
+    doi=false, % doi informatie wordt niet weergegeven
+    %uniquename=true,
+    %uniquelist=true,
+    maxcitenames=3,
+    %issn=false, werkt niet
+    language=american
+]{biblatex}
+\addbibresource{information/Sources.bib}
+\DefineBibliographyStrings{english}{
+    backrefpage = {page},
+    backrefpages = {page},
+}
+\makeglossaries
+\definecolor{Grey1}{HTML}{343434}
+\graphicspath{{./img}}
+ \geometry{
+ a4paper,
+ total={170mm,257mm},
+ left=20mm,
+ top=20mm,
+ }
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+    pdftitle={Overleaf Example},
+    pdfpagemode=FullScreen,
+    }
+
+
+\begin{document}
+
+\include{main/front}
+\maketitle
+
+\include{information/VersionHistory}
+\include{information/Glossary}
+\include{information/ListOfFigures}
+\include{main/TableOfContents}
+
+%% Use Arabic numerals for the page numbers of the chapters.
+%\mainmatter %% fix dit MARNIX
+
+
+\include{chapters/components/hal_sensor}
+
+% \include{chapters/components/code}
+% \include{information/appendix} %% DEZE VERWIJDEREN MITS DIE FILE NIET MEER NODIG IS
+\nocite{*}
+\include{information/Sources}
+
+\appendix
+\input{appendix/python/motor_control.py} %vereist voor python opmaak
+% \input{appendix/stm32_specs}
+\input{appendix/C/halsensor.c}
+\end{document}
