@@ -52,6 +52,7 @@
 \makeatother
 
 
+
 \definecolor{stmblue}{RGB}{0,114,198}    % Adjusted STM32 blue color
 \definecolor{stmgray}{RGB}{128,128,128}
 \definecolor{stmgreen}{RGB}{34,177,76}    % Adjusted STM32 green color
@@ -75,26 +76,12 @@
   numberstyle=\tiny\color{stmgray},
   numbersep=5pt,
   extendedchars=true,
+  keywords=[2]{HAL_TIM_OC_Start,HAL_TIM_PWM_Start,HAL_TIM_Base_Start_IT,HAL_ADC_Start,HAL_ADC_PollForConversion,HAL_I2C_Init,Error_Handler,HAL_SPI_Init,CDC_Transmit_FS,HAL_TIM_PWM_Init,HAL_TIMEx_MasterConfigSynchronization,HAL_TIM_PWM_ConfigChannel,HAL_TIM_MspPostInit,    HAL_ADC_Init,HAL_ADC_Start,HAL_ADC_Stop,HAL_ADC_PollForConversion,HAL_ADC_GetValue,HAL_ADC_MspInit,HAL_ADC_MspDeInit,HAL_CAN_Init,HAL_CAN_ConfigFilter,HAL_CAN_Start,HAL_CAN_Transmit,HAL_CAN_Receive,HAL_CAN_MspInit,HAL_CAN_MspDeInit,HAL_CRC_Init,HAL_CRC_Accumulate,HAL_CRC_Calculate,HAL_CRC_MspInit,HAL_CRC_MspDeInit,HAL_DAC_Init,HAL_DAC_Start,HAL_DAC_Stop,HAL_DAC_SetValue,HAL_DAC_MspInit,HAL_DAC_MspDeInit,HAL_DCMI_Init,HAL_DCMI_Start,HAL_DCMI_Stop,HAL_DCMI_MspInit,HAL_DCMI_MspDeInit,HAL_DMA_Init,HAL_DMA_DeInit,HAL_DMA_Start,HAL_DMA_Start_IT,HAL_DMA_Abort,HAL_DMA_PollForTransfer,HAL_DMA_GetState,HAL_DMA_IRQHandler,HAL_ETH_Init,HAL_ETH_DeInit,HAL_ETH_Start,HAL_ETH_Stop,HAL_ETH_Transmit,HAL_ETH_Transmit_IT,HAL_ETH_TransmitFrameReadyCallback,HAL_ETH_Receive,HAL_ETH_Receive_IT,HAL_ETH_IRQHandler,HAL_ETH_MspInit,HAL_ETH_MspDeInit,HAL_FLASHEx_DATAEEPROM_Unlock,HAL_FLASHEx_DATAEEPROM_Lock,HAL_FLASHEx_DATAEEPROM_Erase,HAL_FLASHEx_DATAEEPROM_Program,HAL_FLASHEx_DATAEEPROM_EnableFixedTimeProgram,HAL_FLASHEx_DATAEEPROM_DisableFixedTimeProgram,HAL_FLASHEx_DATAEEPROM_LaunchFixedTimeProgram,HAL_FLASHEx_DATAEEPROM_GetStatus,HAL_FLASHEx_DATAEEPROM_IRQHandler,HAL_FLASHEx_DATAEEPROM_Callback,HAL_FLASHEx_DATAEEPROM_IT_IRQHandler,HAL_FLASHEx_DATAEEPROM_IT_Callback,HAL_GPIO_Init,HAL_GPIO_DeInit,HAL_GPIO_WritePin,HAL_GPIO_ReadPin,HAL_GPIO_TogglePin,HAL_GetTick,HAL_GetTickFreq,HAL_GetTickPrio,HAL_GetHalVersion,HAL_GetREVID,HAL_GetDEVID,HAL_GetUID,HAL_Init,HAL_DeInit,HAL_MspInit,HAL_MspDeInit,HAL_PCD_Init,HAL_PCD_DeInit,HAL_PCD_SetupStageCallback,HAL_PCD_ResetCallback,HAL_PCD_SuspendCallback,HAL_PCD_ResumeCallback,HAL_PCD_SOFCallback,HAL_PCD_ISOOUTIncompleteCallback,HAL_PCD_ISOINIncompleteCallback,HAL_PCD_DataOutStageCallback,HAL_PCD_DataInStageCallback,HAL_PCD_ConnectCallback,HAL_PCD_DisconnectCallback,HAL_PCD_MspInit,HAL_PCD_MspDeInit,HAL_PCDEx_PMAConfig,HAL_PCDEx_LPM_Callback,HAL_PCDEx_BCD_Callback,HAL_RCC_OscConfig,HAL_RCC_ClockConfig,HAL_RCCEx_PeriphCLKConfig,HAL_RCC_GetOscConfig,HAL_RCC_GetClockConfig,HAL_RCC_GetPeriphCLKConfig,HAL_RCC_OscConfigPLL,HAL_RCC_ClockConfig_PLL,HAL_RCC_OscConfigSaiPLL,HAL_RCCEx_EnableLSE,HAL_RCCEx_DisableLSE,HAL_RCCEx_EnableMSIPLLMode,HAL_RCCEx_DisableMSIPLLMode,HAL_RCCEx_EnablePLLSAI1,HAL_RCCEx_DisablePLLSAI1,HAL_RCCEx_EnablePLLSAI2,HAL_RCCEx_DisablePLLSAI2,HAL_RCCEx_GetPeriphCLKConfig,HAL_RCCEx_PeriphCLKConfig,HAL_RCCEx_ClockSecuritySystem_Enable,HAL_RCCEx_ClockSecuritySystem_Disable,HAL_RCCEx_WakeUpStopCLKConfig,HAL_RCCEx_EnableSRAM2Clock,HAL_RCCEx_DisableSRAM2Clock,HAL_RCCEx_EnableFMCMemorySwapping,HAL_RCCEx_DisableFMCMemorySwapping,HAL_RTC_Init,HAL_RTC_DeInit,HAL_RTC_MspInit,HAL_RTC_MspDeInit,HAL_RTCEx_BKUPWrite,HAL_RTCEx_BKUPRead,HAL_RTCEx_SetTime,HAL_RTCEx_SetDate,HAL_RTCEx_SetAlarm,HAL_RTCEx_SetTimeStamp,HAL_RTCEx_DeactivateTimeStamp,HAL_RTCEx_SetWakeUpTimer,HAL_RTCEx_SetCoarseCalib,HAL_RTCEx_DeactivateCoarseCalib,HAL_RTCEx_EnableBypassShadow,HAL_RTCEx_DisableBypassShadow,HAL_RTCEx_GetTime,HAL_RTCEx_GetDate,HAL_RTCEx_GetAlarm,HAL_RTCEx_GetTimeStamp,HAL_RTCEx_GetWakeUpTimer,HAL_RTCEx_GetCoarseCalib,HAL_RTCEx_GetSynchroShift,HAL_RTCEx_GetTimeStamp_IT,HAL_RTCEx_GetWakeUpTimer_IT,HAL_RTCEx_PollForTimeStamp,HAL_RTCEx_PollForWakeUpTimerEvent,HAL_RTCEx_WakeUpTimerIRQHandler,HAL_RTCEx_Tamper1EventCallback,HAL_RTCEx_Tamper2EventCallback,HAL_RTCEx_TimeStampEventCallback,HAL_RTCEx_AlarmAEventCallback,HAL_RTCEx_AlarmBEvent,TIM2_IRQHandler},
+    keywordstyle=[2]{\color{stmblue}},
+keywords=[3]{htim1,htim2,htim3,htim4,htim5,htim6,htim7,htim8,htim9,htim10,i,hadc1,hadc2,hadc3,j,TIM_CHANNEL_1,TIM_CHANNEL_2,TIM_CHANNEL_3},
+    keywordstyle=[3]{\color{stmorange}}
 }
 
-\lstdefinestyle{STM32}
-{
-    commentstyle=\color{codegreen},
-    keywordstyle=\color{blue},
-    numberstyle=\tiny\color{codegray},
-    stringstyle=\color{codepurple},
-    basicstyle=\ttfamily\small,
-    breakatwhitespace=false,
-    breaklines=true,
-    captionpos=b,
-    keepspaces=true,
-    numbers=left,
-    numbersep=5pt,
-    showspaces=false,
-    showstringspaces=false,
-    showtabs=false,
-    tabsize=2,
-}
 
 
 
@@ -148,9 +135,8 @@
 %% Use Arabic numerals for the page numbers of the chapters.
 %\mainmatter %% fix dit MARNIX
 
-
-\include{chapters/components/hal_sensor}
 \include{chapters/Components}
+\include{chapters/code.tex}
 % \include{chapters/components/code}
 % \include{information/appendix} %% DEZE VERWIJDEREN MITS DIE FILE NIET MEER NODIG IS
 \nocite{*}
