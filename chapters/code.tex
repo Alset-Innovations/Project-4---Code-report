@@ -1,0 +1,256 @@
+\section{Sinus}
+
+\subsection{main.c}
+\begin{lstlisting}[caption={Activate necessary timers},label={lst:Registers}]
+  	HAL_TIM_OC_Start(&htim9, TIM_CHANNEL_1);
+  	HAL_TIM_OC_Start(&htim10, TIM_CHANNEL_1);
+  	HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1);
+  	HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_2);
+  	HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_3);
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Start Interrupts},label={lst:Registers}]
+  	HAL_TIM_Base_Start_IT(&htim9);
+  	HAL_TIM_Base_Start_IT(&htim10);
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Fill sintab array},label={lst:Registers}]
+	for (int i = 0; i < AANTAL_TIJDSTAPPEN; i++) {
+		sintab[i] = sin(i*2*M_PI/AANTAL_TIJDSTAPPEN) * 0.5 + 0.5;
+	}
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Enable Gate Drivers},label={lst:Registers}]
+	GPIOC->ODR = 0xE000;
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Read Potentiometer data from ADC for RPM control},label={lst:Registers}]
+	HAL_ADC_Start(&hadc1);
+	HAL_ADC_PollForConversion(&hadc1, HAL_MAX_DELAY);
+	WantedRPM = HAL_ADC_GetValue(&hadc1);
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Keep RPM to the minimum set in main.h},label={lst:Registers}]
+	if (WantedRPM < MinimumRPM) {
+		WantedRPM = MinimumRPM;
+	}
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Set PSC to appropriate value for RPM},label={lst:Registers}]
+	TIM10->PSC = (15 * Fapb2clk) / (256 * WantedRPM) - 1;
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Send RPM data to PC},label={lst:Registers}]
+	len = snprintf(buf, sizeof(buf), "\n\rWanted RPM / Current RPM: %lu / %lu", WantedRPM, CurrentRPM);
+	CDC_Transmit_FS((uint8_t *) buf, len);
+	HAL_Delay(10);
+\end{lstlisting}
+
+\begin{lstlisting}[caption={i2c instance},label={lst:Registers}]
+ hi2c2.Instance = I2C2;
+  hi2c2.Init.ClockSpeed = 100000;
+  hi2c2.Init.DutyCycle = I2C_DUTYCYCLE_2;
+  hi2c2.Init.OwnAddress1 = 0;
+  hi2c2.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
+  hi2c2.Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
+  hi2c2.Init.OwnAddress2 = 0;
+  hi2c2.Init.GeneralCallMode = I2C_GENERALCALL_DISABLE;
+  hi2c2.Init.NoStretchMode = I2C_NOSTRETCH_DISABLE;
+  if (HAL_I2C_Init(&hi2c2) != HAL_OK)
+  {
+    Error_Handler();
+  }
+\end{lstlisting}
+
+\begin{lstlisting}[caption={SPI instance},label={lst:Registers}]
+  hspi1.Instance = SPI1;
+  hspi1.Init.Mode = SPI_MODE_MASTER;
+  hspi1.Init.Direction = SPI_DIRECTION_2LINES;
+  hspi1.Init.DataSize = SPI_DATASIZE_8BIT;
+  hspi1.Init.CLKPolarity = SPI_POLARITY_LOW;
+  hspi1.Init.CLKPhase = SPI_PHASE_1EDGE;
+  hspi1.Init.NSS = SPI_NSS_SOFT;
+  hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_2;
+  hspi1.Init.FirstBit = SPI_FIRSTBIT_MSB;
+  hspi1.Init.TIMode = SPI_TIMODE_DISABLE;
+  hspi1.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
+  hspi1.Init.CRCPolynomial = 10;
+  if (HAL_SPI_Init(&hspi1) != HAL_OK)
+  {
+    Error_Handler();
+  }
+\end{lstlisting}
+
+\begin{lstlisting}[caption={TIM3 setup},label={lst:Registers}]
+ /* USER CODE END TIM3_Init 1 */
+  htim3.Instance = TIM3;
+  htim3.Init.Prescaler = 0;
+  htim3.Init.CounterMode = TIM_COUNTERMODE_UP;
+  htim3.Init.Period = 1919;
+  htim3.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+  htim3.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+  if (HAL_TIM_PWM_Init(&htim3) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
+  sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
+  if (HAL_TIMEx_MasterConfigSynchronization(&htim3, &sMasterConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sConfigOC.OCMode = TIM_OCMODE_PWM1;
+  sConfigOC.Pulse = 0;
+  sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
+  sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
+  if (HAL_TIM_PWM_ConfigChannel(&htim3, &sConfigOC, TIM_CHANNEL_1) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  if (HAL_TIM_PWM_ConfigChannel(&htim3, &sConfigOC, TIM_CHANNEL_2) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  if (HAL_TIM_PWM_ConfigChannel(&htim3, &sConfigOC, TIM_CHANNEL_3) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN TIM3_Init 2 */
+
+  /* USER CODE END TIM3_Init 2 */
+  HAL_TIM_MspPostInit(&htim3);
+
+}
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Calculate RPM and reset counter},label={lst:Registers}]
+	CurrentRPM = 600 * (RPM / 6.0f);
+	RPM = 0;
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Disable Gate Drivers if RPM is too high},label={lst:Registers}]
+	if (CurrentRPM > MaximumRPM) {
+		GPIOC->ODR &= 0x1FFF;
+	}
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Write some registers},label={lst:Registers}]
+// Set PWM timers to next step in sinusoid generation
+	TIM3->CCR1 = TIM3ARR * sintab[ (j + OffsetU) % AANTAL_TIJDSTAPPEN];
+	TIM3->CCR2 = TIM3ARR * sintab[ (j + OffsetV) % AANTAL_TIJDSTAPPEN];
+	TIM3->CCR3 = TIM3ARR * sintab[ (j + OffsetW) % AANTAL_TIJDSTAPPEN];
+
+	j++;
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Write some registers},label={lst:Registers}]
+	if( j > AANTAL_TIJDSTAPPEN) {
+		j = 0; // Reset j when full sinusoid has been made.
+	}
+\end{lstlisting}
+
+\section{Commutation}
+\subsection{main.c}
+\begin{lstlisting}[caption={Write some registers},label={lst:Registers}]
+uint8_t HallSensor = 0;
+uint16_t Commutation[6][3] = {
+		{0x0, 0xF, 0xF},
+		{},
+		{},
+		{},
+		{},
+		{}
+};
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Write some registers},label={lst:Registers}]
+HAL_StatusTypeDef StartupSequence(char Direction);
+HAL_StatusTypeDef PrepareCommutation(void);
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Write some registers},label={lst:Registers}]
+  TIM1->CR2 |= 0x0005; 			// Set CCPC 1 and CCUS 1 in CR2
+  TIM1->SR &= ~TIM_SR_COMIF; 	// Set COMIF low in SR to not trigger commutation event
+  TIM1->DIER |= TIM_DIER_COMIE; // Enable Commutation events in DIER register
+
+  StartupSequence('F');
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Set first commutation state according to Hall sensors},label={lst:Registers}]
+HAL_StatusTypeDef StartupSequence(char Direction) {
+
+  if (PrepareCommutation() == HAL_ERROR) {
+	  return HAL_ERROR;
+  }
+
+  // Start HallSensor timer
+  HAL_TIMEx_HallSensor_Start(&htim2);
+
+  // Start all PWM signals on TIM1
+  HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
+  HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_2);
+  HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_3);
+
+  // Start Interrupts
+  HAL_TIM_Base_Start_IT(&htim2);
+  HAL_TIM_Base_Start_IT(&htim1);
+
+  // Set COMG bit in EGR for first commutation
+  TIM1->EGR |= TIM_EGR_COMG;
+
+  return HAL_OK;
+
+}
+
+HAL_StatusTypeDef PrepareCommutation() {
+
+  // Read IDR for Hall Sensor status
+  uint8_t Hall = GPOIA->IDR & 0x0007;
+
+  switch (Hall) {
+  case 0b001:
+	  HallSensor = 0;
+  break;
+  }
+
+  return HAL_OK;
+
+}
+\end{lstlisting}
+
+
+
+\subsection{stm32f4xx\textunderscore it.c}
+\begin{lstlisting}[caption={Set new Commutation states CCxE, CCxNE, OCxM in CCER and CCMR1 and CCMR2 according to array},label={lst:Registers}]
+void TIM1_TRG_COM_TIM11_IRQHandler(void)
+{
+  /* USER CODE BEGIN TIM1_TRG_COM_TIM11_IRQn 0 */
+
+	// Set new Commutation states CCxE, CCxNE, OCxM in CCER and CCMR1 and CCMR2 according to array
+	// Reset COMIF in SR register
+
+
+  /* USER CODE END TIM1_TRG_COM_TIM11_IRQn 0 */
+  HAL_TIM_IRQHandler(&htim1);
+  /* USER CODE BEGIN TIM1_TRG_COM_TIM11_IRQn 1 */
+
+  /* USER CODE END TIM1_TRG_COM_TIM11_IRQn 1 */
+}
+
+/**
+  * @brief This function handles TIM2 global interrupt.
+  */
+void TIM2_IRQHandler(void)
+{
+  /* USER CODE BEGIN TIM2_IRQn 0 */
+
+  // Set COMG bit in EGR
+  TIM1->EGR |= TIM_EGR_COMG;
+
+  /* USER CODE END TIM2_IRQn 0 */
+  HAL_TIM_IRQHandler(&htim2);
+  /* USER CODE BEGIN TIM2_IRQn 1 */
+
+  /* USER CODE END TIM2_IRQn 1 */
+}
+\end{lstlisting}
